@@ -1,0 +1,17 @@
+from flask import request, Flask, render_template
+from EmotionDetection.emotion_detection import emotion_detector
+
+app = Flask('Emotion detector')
+
+@app.route('/emotionDetector')
+def emotionDetector():
+    text_to_analyze = request.args.get('textToAnalyze')
+    response = emotion_detector(text_to_analyze)
+    return response
+
+@app.route('/')
+def render_index():
+    return render_template('index.html')
+
+if __name__ == 'main':
+    app.run(host='0.0.0.0',port=5000)
